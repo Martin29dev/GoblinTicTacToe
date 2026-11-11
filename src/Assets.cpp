@@ -3,14 +3,15 @@
 
 namespace
 {
-    // Wszystkie ścieżki zaczynają się od tego folderu (względem folderu projektu).
-    const std::string ASSETS_DIR = "assets/";
+    // Foldery z zasobami (względem folderu projektu).
+    const std::string PNG_DIR    = "assets/Png/";
+    const std::string SOUNDS_DIR = "assets/Sounds/";
 
-    std::string Path(const std::string& file) { return ASSETS_DIR + file; }
+    std::string Path(const std::string& file) { return SOUNDS_DIR + file; }   // dźwięki i muzyka
 
     Texture2D LoadTex(const std::string& file)
     {
-        return LoadTexture(Path(file).c_str());   // przy braku pliku raylib zwróci id == 0
+        return LoadTexture((PNG_DIR + file).c_str());   // przy braku pliku raylib zwróci id == 0
     }
 
     void UnloadTex(Texture2D& tex)
@@ -67,6 +68,8 @@ void Assets::Load()
     click.Load(Path("click.wav").c_str());
     win.Load(Path("win.wav").c_str());
     lose.Load(Path("lose.wav").c_str());
+    enemyMove.Load(Path("enemy.wav").c_str());
+    swish.Load(Path("swish.wav").c_str());
 
     // --- muzyka: bierzemy pierwszy istniejący plik ---
     const char* musicFiles[] = { "music.mp3", "music.ogg", "music.wav" };
@@ -80,7 +83,7 @@ void Assets::Load()
             break;
         }
     }
-    if (!musicLoaded) TraceLog(LOG_WARNING, "Brak muzyki (assets/music.mp3)");
+    if (!musicLoaded) TraceLog(LOG_WARNING, "Brak muzyki (assets/Sounds/music.mp3)");
 }
 
 void Assets::Unload()
@@ -95,6 +98,8 @@ void Assets::Unload()
     click.Unload();
     win.Unload();
     lose.Unload();
+    enemyMove.Unload();
+    swish.Unload();
 
     if (musicLoaded) UnloadMusicStream(music);
     musicLoaded = false;

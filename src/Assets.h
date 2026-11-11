@@ -26,7 +26,7 @@ struct Assets
 
     Music music{};
     bool  musicLoaded = false;
-    Sfx   click, win, lose;
+    Sfx   click, win, lose, enemyMove, swish;
 
     void Load();
     void Unload();

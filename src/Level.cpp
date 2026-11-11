@@ -26,7 +26,7 @@ const LevelConfig& GetLevelConfig(int index)
 {
     static const LevelConfig levels[LEVEL_COUNT] = {
         //  tytuł                          plansza  wygrana  głębokość  ostatni
-        { "Poziom 1 - Lesna sciezka",         3,       3,       0,      false },
+        { "Poziom 1 - Lesna sciezka",         4,       3,       0,      false },
         { "Poziom 2 - Mroczna jaskinia",      4,       3,       3,      false },
         { "Poziom 3 - Twierdza goblina",      5,       4,       5,      true  },
     };
@@ -79,7 +79,9 @@ void LevelScreen::EnemyMove(const Assets& assets)
     int move = ai->ChooseMove(board, Cell::Enemy);
     lastStats = ai->GetStats();
     hasStats = true;
-    PlayMove(move, Cell::Enemy, assets);
+    // Dźwięk ruchu goblina (przy końcu partii gra już dźwięk wygranej/porażki).
+    if (PlayMove(move, Cell::Enemy, assets) && result == LevelResult::Playing)
+        assets.enemyMove.Play();
 }
 
 Rectangle LevelScreen::CellRect(int index) const

@@ -129,6 +129,7 @@ void Game::StartTransition(std::function<void()> action)
     if (fadePhase != FadePhase::None) return;
     onBlack = action;
     fadePhase = FadePhase::Out;
+    assets.swish.Play();
 }
 
 void Game::UpdateFade()
