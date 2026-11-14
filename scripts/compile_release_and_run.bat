@@ -31,12 +31,17 @@ echo UWAGA: uzywam cl.exe z biezacej konsoli. Jej architektura musi byc taka sam
 
 :compile
 rem Czyscimy stare pliki, zeby nie mieszac x86 z x64.
-del /q obj\*.obj >nul 2>nul
+del /q obj\*.obj obj\*.res >nul 2>nul
+
+rem Kompilujemy zasoby (ikona) do pliku .res - linker dolaczy go do .exe.
+echo Dodawanie ikony...
+rc /nologo /i assets\Icon /fo obj\app.res assets\Icon\app.rc
+if errorlevel 1 goto :error
 
 echo Kompilacja (MSVC, Release, %ARCH%)...
 cl /nologo /std:c++17 /O2 /EHsc /W3 /utf-8 /MD /DNDEBUG ^
    /Iraylib\include ^
-   src\*.cpp ^
+   src\*.cpp obj\app.res ^
    /Fo:obj\ /Fe:GoblinTicTacToe.exe ^
    /link /LIBPATH:raylib\lib raylib.lib opengl32.lib gdi32.lib winmm.lib user32.lib shell32.lib
 if errorlevel 1 goto :error

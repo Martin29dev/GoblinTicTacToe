@@ -1,0 +1,9 @@
+// Zasoby Windows aplikacji.
+//
+// Ikona nr 1 = ikona pliku .exe (Eksplorator, pulpit, skroty).
+// Ikona "GLFW_ICON" = ikona okna (pasek zadan, Alt+Tab, pasek tytulu).
+//   Raylib uzywa GLFW, ktory szuka zasobu o dokladnie takiej nazwie.
+// Kolejnosc ma znaczenie: Eksplorator pokazuje pierwsza ikone w pliku.
+
+1          ICON "app.ico"
+GLFW_ICON  ICON "app.ico"
